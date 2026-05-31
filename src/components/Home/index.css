@@ -1,0 +1,117 @@
+.home-page {
+  width: 100%;
+  padding-bottom: 0;
+}
+
+.hero-section {
+  min-height: calc(100vh - 68px);
+  display: flex;
+  align-items: center;
+  padding: 42px 18px;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(23, 32, 51, 0.88),
+      rgba(23, 32, 51, 0.58),
+      rgba(23, 32, 51, 0.14)
+    ),
+    url("https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.hero-content h1 {
+  margin: 0;
+  max-width: 760px;
+  font-size: clamp(36px, 8vw, 72px);
+  line-height: 1;
+  color: #ffffff;
+}
+
+.hero-description {
+  max-width: 640px;
+  margin: 18px 0 24px;
+  color: #eef2f8;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.hero-button {
+  min-width: 170px;
+}
+
+.hero-section .section-label {
+  color: #ffcc70;
+}
+
+.benefits-section {
+  width: min(1180px, calc(100% - 36px));
+  margin-left: auto;
+  margin-right: auto;
+  min-height: calc(100vh - 68px);
+  margin-top: 0;
+  padding: 42px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-content: center;
+}
+
+.benefit-card {
+  min-height: 190px;
+  padding: 28px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e8edf5;
+  box-shadow: 0 12px 30px rgba(23, 32, 51, 0.08);
+}
+
+.benefit-card svg {
+  width: 38px;
+  height: 38px;
+  color: #e14d2a;
+}
+
+.benefit-card h2 {
+  margin: 14px 0 8px;
+  font-size: 22px;
+}
+
+.benefit-card p {
+  margin: 0;
+  color: #65738a;
+  line-height: 1.6;
+}
+
+@media (min-width: 760px) {
+  .benefits-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1040px) {
+  .benefits-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .benefit-card {
+    min-height: 230px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    min-height: calc(100vh - 68px);
+    background-position: 58% center;
+  }
+
+  .benefits-section {
+    min-height: auto;
+    padding: 32px 0;
+  }
+}

@@ -1,0 +1,122 @@
+.nav-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid #e8edf5;
+  backdrop-filter: blur(12px);
+}
+
+.nav-content {
+  width: 100%;
+  margin: 0;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.website-logo {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 8px;
+  color: #172033;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.website-logo svg {
+  color: #e14d2a;
+}
+
+.mobile-menu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #d9dfeb;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.nav-links-container {
+  position: absolute;
+  top: 67px;
+  left: 0;
+  right: 0;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  background: #ffffff;
+  border-bottom: 1px solid #e8edf5;
+}
+
+.nav-links-container.show-menu {
+  display: flex;
+}
+
+.nav-link,
+.logout-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #56657f;
+  font-weight: 700;
+}
+
+.nav-link.active {
+  background: #fff1ec;
+  color: #e14d2a;
+}
+
+.badge-link span {
+  min-width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #172033;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.user-name {
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid #f2c4b8;
+  border-radius: 8px;
+  background: #fff1ec;
+  color: #172033;
+  font-weight: 800;
+}
+
+.logout-button {
+  border: 0;
+  background: #172033;
+  color: #ffffff;
+}
+
+@media (min-width: 900px) {
+  .mobile-menu-button {
+    display: none;
+  }
+
+  .nav-links-container {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: auto;
+    padding: 0;
+    border-bottom: 0;
+    background: transparent;
+  }
+}
