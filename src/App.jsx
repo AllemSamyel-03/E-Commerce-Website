@@ -20,22 +20,41 @@ const getStoredData = (key, fallbackValue) => {
   return storedValue !== null ? JSON.parse(storedValue) : fallbackValue;
 };
 
+const getUserCartKey = (userId) => `shopEaseCart_${userId}`;
+
+const getUserWishlistKey = (userId) => `shopEaseWishlist_${userId}`;
+
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(
-    getStoredData("shopEaseCurrentUser", null),
+  const storedCurrentUser = getStoredData("shopEaseCurrentUser", null);
+  const [currentUser, setCurrentUser] = useState(storedCurrentUser);
+  const [cartList, setCartList] = useState(
+    storedCurrentUser !== null
+      ? getStoredData(getUserCartKey(storedCurrentUser.id), [])
+      : [],
   );
-  const [cartList, setCartList] = useState(getStoredData("shopEaseCart", []));
   const [wishlist, setWishlist] = useState(
-    getStoredData("shopEaseWishlist", []),
+    storedCurrentUser !== null
+      ? getStoredData(getUserWishlistKey(storedCurrentUser.id), [])
+      : [],
   );
 
   useEffect(() => {
-    localStorage.setItem("shopEaseCart", JSON.stringify(cartList));
-  }, [cartList]);
+    if (currentUser !== null) {
+      localStorage.setItem(
+        getUserCartKey(currentUser.id),
+        JSON.stringify(cartList),
+      );
+    }
+  }, [cartList, currentUser]);
 
   useEffect(() => {
-    localStorage.setItem("shopEaseWishlist", JSON.stringify(wishlist));
-  }, [wishlist]);
+    if (currentUser !== null) {
+      localStorage.setItem(
+        getUserWishlistKey(currentUser.id),
+        JSON.stringify(wishlist),
+      );
+    }
+  }, [wishlist, currentUser]);
 
   useEffect(() => {
     if (currentUser === null) {
@@ -63,6 +82,8 @@ const App = () => {
       "shopEaseUsers",
       JSON.stringify([...usersList, newUser]),
     );
+    setCartList([]);
+    setWishlist([]);
     setCurrentUser({
       id: newUser.id,
       name: newUser.name,
@@ -81,6 +102,8 @@ const App = () => {
       return { isSuccess: false, message: "Invalid email or password." };
     }
 
+    setCartList(getStoredData(getUserCartKey(matchedUser.id), []));
+    setWishlist(getStoredData(getUserWishlistKey(matchedUser.id), []));
     setCurrentUser({
       id: matchedUser.id,
       name: matchedUser.name,
@@ -91,8 +114,6 @@ const App = () => {
 
   const logoutUser = () => {
     setCurrentUser(null);
-    setCartList([]);
-    setWishlist([]);
   };
 
   const addToCart = (product) => {
