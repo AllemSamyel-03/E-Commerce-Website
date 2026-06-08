@@ -1,12 +1,12 @@
-import { act, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import ProductCard from "../ProductCard";
 import Loader from "../Loader";
+import CategoriesTabs from "../CategoriesTabs";
 import {
   CATEGORIES_API,
   PAGINATION_API,
   PRODUCTS_BY_CATEGORY_API,
-  SEARCH_PRODUCTS_API,
 } from "../../utils/apiUrls";
 import "./index.css";
 
@@ -72,19 +72,9 @@ const Products = () => {
         apiUrl = PRODUCTS_BY_CATEGORY_API(activeCategory);
       }
 
-      if (searchInput.trim() !== "") {
-        apiUrl = SEARCH_PRODUCTS_API(searchInput.trim());
-      }
-
       const response = await fetch(apiUrl);
       const data = await response.json();
       // console.log(data);
-      // const products =
-      //   searchInput.trim() !== "" && activeCategory !== "all"
-      //     ? data.products.filter(
-      //         (product) => product.category === activeCategory,
-      //       )
-      //     : data.products || [];
 
       const products = data.products || [];
 
@@ -120,7 +110,18 @@ const Products = () => {
     activeCategory === "all" &&
     searchInput.trim() === "" &&
     productsList.length < totalProducts;
-  const sortedProductsList = getSortedProducts(productsList, activeSortOption);
+
+  const categoryChange = (newCategory) => {
+    setActiveCategory(newCategory);
+  };
+
+  const SearchProductsResult = productsList.filter((eachProduct) =>
+    eachProduct.title.toLowerCase().includes(searchInput.toLocaleLowerCase()),
+  );
+  const sortedProductsList = getSortedProducts(
+    SearchProductsResult,
+    activeSortOption,
+  );
 
   return (
     <main className="products-page page-fade">
@@ -167,18 +168,12 @@ const Products = () => {
             All Products
           </button>
           {categoriesList.map((eachCategory) => (
-            <button
-              type="button"
+            <CategoriesTabs
               key={eachCategory.slug}
-              className={
-                activeCategory === eachCategory.slug
-                  ? "category-btn active"
-                  : "category-btn"
-              }
-              onClick={() => setActiveCategory(eachCategory.slug)}
-            >
-              {eachCategory.name}
-            </button>
+              eachCategory={eachCategory}
+              activeCategory={activeCategory}
+              categoryChange={categoryChange}
+            />
           ))}
         </aside>
         <section className="products-results-section">

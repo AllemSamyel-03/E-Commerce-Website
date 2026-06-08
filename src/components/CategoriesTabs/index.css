@@ -1,0 +1,16 @@
+.category-btn {
+  flex: 0 0 auto;
+  border: 1px solid #d9dfeb;
+  border-radius: 8px;
+  padding: 9px 12px;
+  background: #ffffff;
+  color: #56657f;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.category-btn.active {
+  background: #e14d2a;
+  border-color: #e14d2a;
+  color: #ffffff;
+}
