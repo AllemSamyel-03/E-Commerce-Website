@@ -8,7 +8,8 @@
 .auth-image-section {
   min-height: 280px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
   padding: 28px;
   color: #ffffff;
   background-size: cover;
@@ -31,9 +32,26 @@
   background-image: url("https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=1200&q=80");
 }
 
-.auth-image-section div {
+.auth-image-content {
   position: relative;
+  width: 100%;
   max-width: 560px;
+}
+
+.auth-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #ecefff;
+  font-size: 40px;
+  font-weight: 900;
+}
+
+.auth-logo svg {
+  color: #fa0606;
 }
 
 .auth-image-section h1 {

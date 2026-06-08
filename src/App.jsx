@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import AuthContext from "./context/AuthContext";
 import CartContext from "./context/CartContext";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -25,6 +26,7 @@ const getUserCartKey = (userId) => `shopEaseCart_${userId}`;
 const getUserWishlistKey = (userId) => `shopEaseWishlist_${userId}`;
 
 const App = () => {
+  const location = useLocation();
   const storedCurrentUser = getStoredData("shopEaseCurrentUser", null);
   const [currentUser, setCurrentUser] = useState(storedCurrentUser);
   const [cartList, setCartList] = useState(
@@ -37,6 +39,10 @@ const App = () => {
       ? getStoredData(getUserWishlistKey(storedCurrentUser.id), [])
       : [],
   );
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
 
   useEffect(() => {
     if (currentUser !== null) {
@@ -202,65 +208,68 @@ const App = () => {
       <CartContext.Provider value={cartContextValue}>
         <div className="app-container">
           {currentUser !== null && <Header />}
-          <Routes>
-            <Route
-              path="/login"
-              element={currentUser ? <Navigate to="/" replace /> : <Login />}
-            />
-            <Route
-              path="/signup"
-              element={currentUser ? <Navigate to="/" replace /> : <Signup />}
-            />
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/products"
-              element={
-                <ProtectedRoute>
-                  <Products />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/products/:id"
-              element={
-                <ProtectedRoute>
-                  <ProductDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/cart"
-              element={
-                <ProtectedRoute>
-                  <Cart />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/wishlist"
-              element={
-                <ProtectedRoute>
-                  <Wishlist />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/checkout"
-              element={
-                <ProtectedRoute>
-                  <Checkout />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="route-content">
+            <Routes>
+              <Route
+                path="/login"
+                element={currentUser ? <Navigate to="/" replace /> : <Login />}
+              />
+              <Route
+                path="/signup"
+                element={currentUser ? <Navigate to="/" replace /> : <Signup />}
+              />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/products"
+                element={
+                  <ProtectedRoute>
+                    <Products />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/products/:id"
+                element={
+                  <ProtectedRoute>
+                    <ProductDetails />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/wishlist"
+                element={
+                  <ProtectedRoute>
+                    <Wishlist />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <Checkout />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+          {currentUser !== null && <Footer />}
         </div>
       </CartContext.Provider>
     </AuthContext.Provider>

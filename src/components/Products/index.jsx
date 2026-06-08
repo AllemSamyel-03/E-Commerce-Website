@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import ProductCard from "../ProductCard";
 import Loader from "../Loader";
@@ -50,6 +50,8 @@ const Products = () => {
     const getCategories = async () => {
       const response = await fetch(CATEGORIES_API);
       const data = await response.json();
+      // console.log(response);
+      // console.log(data);
       const formattedCategories = data.map((item) =>
         typeof item === "string" ? { slug: item, name: item } : item,
       );
@@ -76,6 +78,14 @@ const Products = () => {
 
       const response = await fetch(apiUrl);
       const data = await response.json();
+      // console.log(data);
+      // const products =
+      //   searchInput.trim() !== "" && activeCategory !== "all"
+      //     ? data.products.filter(
+      //         (product) => product.category === activeCategory,
+      //       )
+      //     : data.products || [];
+
       const products = data.products || [];
 
       setProductsList((prevProductsList) =>

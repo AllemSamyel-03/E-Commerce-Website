@@ -47,7 +47,7 @@ const Checkout = () => {
         </div>
         <form className="payment-form" onSubmit={onSubmitPayment}>
           <label htmlFor="cardName">Name on Card</label>
-          <input id="cardName" type="text" placeholder="Rahul" required />
+          <input id="cardName" type="text" placeholder="Sam" required />
           <label htmlFor="cardNumber">Card Number</label>
           <div className="input-field">
             <FiCreditCard />

@@ -1,6 +1,6 @@
 import { use, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { FiLock, FiMail } from "react-icons/fi";
+import { FiLock, FiMail, FiShoppingBag } from "react-icons/fi";
 import AuthContext from "../../context/AuthContext";
 import "./index.css";
 
@@ -25,7 +25,11 @@ const Login = () => {
   return (
     <div className="auth-page login-page">
       <div className="auth-image-section">
-        <div>
+        <div className="auth-image-content">
+          <div className="auth-logo">
+            <FiShoppingBag />
+            <span>ShopEase</span>
+          </div>
           <h1>Shop smarter every day</h1>
           <p>
             Discover daily essentials, gadgets, fashion, and home picks in one

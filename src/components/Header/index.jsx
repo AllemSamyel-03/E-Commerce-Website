@@ -13,6 +13,10 @@ import AuthContext from "../../context/AuthContext";
 import CartContext from "../../context/CartContext";
 import "./index.css";
 
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { currentUser, logoutUser } = use(AuthContext);
@@ -24,12 +28,15 @@ const Header = () => {
     navigate("/login", { replace: true });
   };
 
-  const closeMenu = () => setShowMenu(false);
+  const onClickNavItem = () => {
+    setShowMenu(false);
+    scrollToTop();
+  };
 
   return (
     <nav className="nav-header">
       <div className="nav-content">
-        <Link to="/" className="website-logo" onClick={closeMenu}>
+        <Link to="/" className="website-logo" onClick={onClickNavItem}>
           <FiShoppingBag />
           <span>ShopEase</span>
         </Link>
@@ -42,23 +49,23 @@ const Header = () => {
           {showMenu ? <FiX /> : <FiMenu />}
         </button>
         <div className={`nav-links-container ${showMenu ? "show-menu" : ""}`}>
-          <NavLink to="/" className="nav-link" onClick={closeMenu}>
+          <NavLink to="/" className="nav-link" onClick={onClickNavItem}>
             <FiHome /> Home
           </NavLink>
-          <NavLink to="/products" className="nav-link" onClick={closeMenu}>
+          <NavLink to="/products" className="nav-link" onClick={onClickNavItem}>
             <FiShoppingBag /> Products
           </NavLink>
           <NavLink
             to="/wishlist"
             className="nav-link badge-link"
-            onClick={closeMenu}
+            onClick={onClickNavItem}
           >
             <FiHeart /> Wishlist <span>{wishlist.length}</span>
           </NavLink>
           <NavLink
             to="/cart"
             className="nav-link badge-link"
-            onClick={closeMenu}
+            onClick={onClickNavItem}
           >
             <FiShoppingCart /> Cart <span>{cartList.length}</span>
           </NavLink>
